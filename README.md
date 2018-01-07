@@ -14,6 +14,7 @@
 1. Python 3
 
     `python3 -m venv env`
+    
     `source env/bin/activate`
 
     As this system only uses Python 3 Standard Library, you'll find `requirements.txt` empty.
