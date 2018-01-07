@@ -9,6 +9,9 @@
 3. Buffer to store log messages
 
 
+![Sample Kite EMail](https://raw.githubusercontent.com/kunalprompt/kite/master/kite_email.png)
+
+
 ## Tech
 
 1. Python 3
