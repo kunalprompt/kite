@@ -8,8 +8,11 @@
 
 3. Buffer to store log messages
 
+----------------------
+## Sample Kite Email
 
 ![Sample Kite EMail](https://raw.githubusercontent.com/kunalprompt/kite/master/kite_email.png)
+----------------------
 
 
 ## Tech
