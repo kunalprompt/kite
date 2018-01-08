@@ -37,6 +37,14 @@ class KiteErrorsBufferEmailHandler(BufferingHandler):
                 self.handler(record)
             self.flush()
 
+    def flush(self):
+        """
+        This version not just zaps the buffer to empty, but emits all the pending messages.
+        """
+        for record in self.buffer:
+            self.handler(record)
+        super().flush()
+
     def handler(self, record):
         """
         customized handler to send emails from GMAIL SMTP
@@ -78,7 +86,7 @@ class KiteErrorsBufferEmailHandler(BufferingHandler):
         msg = MIMEMultipart()
         msg["From"] = self.email_configs['from']
         msg["To"] = self.email_configs['to']
-        msg["Subject"] = "{}{}".format('Monitor: ', self.email_configs['subject'])
+        msg["Subject"] = self.email_configs['subject']
         msg['Date'] = str(email.utils.localtime())
         if msg_type == 'plain':
             msg.attach(MIMEText(self.format(record), _subtype='plain'))
@@ -97,4 +105,3 @@ class KiteErrorsBufferEmailHandler(BufferingHandler):
         msg = self.draft_text_message(record, msg_type=msg_type)
         msg.attach(MIMEText(html, 'html'))
         return msg
-
