@@ -1,7 +1,6 @@
 import os
 import logging
 from .log_buffer import KiteErrorsBufferEmailHandler
-from logging import NullHandler
 
 
 class KiteLogger:
@@ -19,7 +18,7 @@ class KiteLogger:
         self.logger = logging.getLogger(self.__class__.__name__)
 
         # adding Null Handler - https://docs.python.org/3/howto/logging.html#library-config
-        self.logger.addHandler(NullHandler())
+        self.logger.addHandler(logging.NullHandler())
 
         self.logger.setLevel(self.log_level)
         self.format = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
