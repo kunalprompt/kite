@@ -47,14 +47,15 @@ class KiteLogger:
         """
         Additional handler to handle emails
 
-        Options:
-            capacity - the capacity of messages buffer
-            email_to - message receivers {can be "a,b,c" or ("a", "b", "c") or ["a", "b", "c"]}
-            email_subject - the subject of email
+        Options: (* means compulsory)
+            *capacity - the capacity of messages buffer
+            *email_to - message receivers {can be "a,b,c" or ("a", "b", "c") or ["a", "b", "c"]}
+            *email_subject - the subject of email
+             log_level - the level for which logging is required
         """
-        kebeh = KiteErrorsBufferEmailHandler(capacity=kwargs.get('capacity', 1),
+        kebeh = KiteErrorsBufferEmailHandler(capacity=kwargs['capacity'],
                                              toaddrs=kwargs['email_to'],
                                              subject=kwargs['email_subject'])
         kebeh.setFormatter(self.format)
-        kebeh.setLevel(logging.ERROR)
+        kebeh.setLevel(kwargs.get('log_level', logging.ERROR))
         self.logger.addHandler(kebeh)
