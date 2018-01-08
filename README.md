@@ -6,7 +6,9 @@
 
 2. Simple Text/HTML Messages/Templates for logs
 
-3. Buffer to store log messages
+3. Buffer to store log messages (In case process closes before 
+buffer flush threshold, then all the pending messages will be 
+handled approporiately.)
 
 ----------------------
 ## Sample Kite Email
