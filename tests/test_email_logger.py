@@ -9,12 +9,13 @@ class TestEmailLogger(TestCase):
 
     def test_email_logging(self):
         log = KiteLogger()
-        log.add_handler(email_to='kunalprompt@gmail.com',
-                        email_subject='Hello')
+        log.add_email_handler(capacity=3,
+                              email_to='kunalprompt@gmail.com',
+                              email_subject='Buffer Capacity 3 | But errors recorded are only 2')
         try:
-            log.logger.debug("DEBUG: Hello World")
-            log.logger.info("DEBUG: Hello Sansaar")
-            log.logger.error("ERROR: Hello Duniya")
-            log.logger.critical("CRITICAL: Hello People")
+            log.logger.debug("Hello World")
+            log.logger.info("Hello Sansaar")
+            log.logger.error("Hello Duniya")
+            log.logger.critical("Hello People")
         except:
             assert False
