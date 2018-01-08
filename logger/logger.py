@@ -8,20 +8,25 @@ class KiteLogger:
     Class to manage logs
     """
 
-    def __init__(self, log_level=logging.DEBUG):
+    def __init__(self, **kwargs):
         """
         Registers the logger
 
-        :param log_level: the default log level for the logger
+        Options:
+            default_log_level - indicates the default level for logging
+            logger_name - customize the name of your logger
+            msg_format_string - set the customized format for log messages
         """
-        self.log_level = log_level
-        self.logger = logging.getLogger(self.__class__.__name__)
+        self.log_level = kwargs.get('default_log_level', logging.DEBUG)
+        self.logger = logging.getLogger(kwargs.get('logger_name', self.__class__.__name__))
 
         # adding Null Handler - https://docs.python.org/3/howto/logging.html#library-config
         self.logger.addHandler(logging.NullHandler())
 
         self.logger.setLevel(self.log_level)
-        self.format = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+
+        msg_format_string = '%(asctime)s - %(levelname)s - %(message)s'
+        self.format = logging.Formatter(kwargs.get('msg_format_string', msg_format_string))
 
     def add_file_handler(self, log_directory='/tmp', log_file='kite-logger.log'):
         """
@@ -41,6 +46,11 @@ class KiteLogger:
     def add_email_handler(self, **kwargs):
         """
         Additional handler to handle emails
+
+        Options:
+            capacity - the capacity of messages buffer
+            email_to - message receivers {can be "a,b,c" or ("a", "b", "c") or ["a", "b", "c"]}
+            email_subject - the subject of email
         """
         kebeh = KiteErrorsBufferEmailHandler(capacity=kwargs.get('capacity', 1),
                                              toaddrs=kwargs['email_to'],
