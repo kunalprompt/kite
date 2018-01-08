@@ -12,8 +12,8 @@ class KiteErrorsBufferEmailHandler(BufferingHandler):
     This class handles the messages as per buffer capacity wrt handler definition.
     """
 
-    def __init__(self, capacity, **kwargs):
-        super().__init__(capacity=capacity)
+    def __init__(self, **kwargs):
+        super().__init__(capacity=kwargs['capacity'])
         self.email_configs = {
             'mailhost': kwargs.get('mailhost', 'smtp.gmail.com'),
             'mailport': kwargs.get('mailport', 587),
